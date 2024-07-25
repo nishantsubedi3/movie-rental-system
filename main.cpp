@@ -1,5 +1,6 @@
 #include "include/includer.h"
-int main(){
+int main()
+{
     cls();
     fullscreen();
     initialize();

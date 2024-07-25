@@ -7,9 +7,39 @@ void returnMovie()
     cls();
     printEnd("DEVELOPED BY AADARSHA KHANAL, BIGYAN POKHREL, SURAJ GUVAJU & NISHANT SUBEDI");
     centerMe("RETURN A MOVIE");
+    fstream getTotalUserFile("appData/Users/totalUser.file");
+    if (!getTotalUserFile)
+    {
+        getTotalUserFile.close();
+        fullCenterMe("NO USERS AVAILABLE!", 1);
+        fullCenterMe("PRESS ANY KEY TO GO BACK", -4);
+        _getch();
+        menu();
+    }
+    int totalUser;
+    getTotalUserFile >> totalUser;
+    getTotalUserFile.close();
+    if (totalUser == 0)
+    {
+        getTotalUserFile.close();
+        fullCenterMe("NO USERS AVAILABLE!", 1);
+        fullCenterMe("PRESS ANY KEY TO GO BACK", -4);
+        _getch();
+        menu();
+    }
+    int flag = getTotalRentedUserAmount(totalUser);
+    if (flag == 0)
+    {
+        getTotalUserFile.close();
+        fullCenterMe("NO USERS HAS RENTED A MOVIE TO RETURN!", 1);
+        fullCenterMe("PRESS ANY KEY TO GO BACK", -4);
+        _getch();
+        menu();
+    }
     cout << endl
          << endl
          << "Enter the user phone number: +977 ";
+    userPhoneNumber.clear();
     status = enterPhoneNumber(userPhoneNumber);
     if (status == 0)
     {
@@ -104,7 +134,8 @@ retryIMDB:
          << "Are you sure you want to return " << totalCopyWithUser << " copies of the movie?(y/n): ";
     c = _getch();
     cout << c;
-    if (c == 'n' || c == 'n')
+    tolower(c);
+    if (c == 'n')
     {
         fullCenterMe("OPERATION CANCELLED BY THE USER!");
         fullCenterMe("Press esc to return to menu.......", -7);
@@ -121,6 +152,12 @@ retryIMDB:
     ofstream reTotalUserMovie("appData/rentedMovies/user" + userPhoneNumber + "/totalMovie.file");
     reTotalUserMovie << totalMoviesWithUser - 1;
     reTotalUserMovie.close();
+    for (int i = UserIndexOfMovie + 1; i <= totalMoviesWithUser; i++)
+    {
+        rename(("appData/rentedMovies/user" + userPhoneNumber + "/movie" + to_string(i) + ".file").c_str(), ("appData/rentedMovies/user" + userPhoneNumber + "/movie" + to_string(i - 1) + ".file").c_str());
+        rename(("appData/rentedMovies/user" + userPhoneNumber + "/copy" + to_string(i) + ".file").c_str(), ("appData/rentedMovies/user" + userPhoneNumber + "/copy" + to_string(i - 1) + ".file").c_str());
+        rename(("appData/rentedMovies/user" + userPhoneNumber + "/date" + to_string(i) + ".file").c_str(), ("appData/rentedMovies/user" + userPhoneNumber + "/date" + to_string(i - 1) + ".file").c_str());
+    }
     ofstream reDbTotal("appData/allMovies/movie" + to_string(indexOfMovieInDb) + "/copies.file");
     reDbTotal << beforeCopyDb + totalCopyWithUser;
     reDbTotal.close();

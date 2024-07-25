@@ -26,3 +26,4 @@
 #include "extraFunctions.h"
 #include "rentAMovie.h"
 #include "returnAMovie.h"
+#include "viewRentedMovies.h"

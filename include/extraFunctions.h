@@ -92,6 +92,7 @@ int getTotalCopiesOfMoviesInDb(int userRequestedCopies, int index)
 
 int enterPhoneNumber(string &phone)
 {
+    phone.clear();
     char c;
     int i = 0;
     while (true)
@@ -121,7 +122,7 @@ int enterPhoneNumber(string &phone)
             continue;
         }
     }
-    if (phone[0] != '9' || phone[1] != '8' && phone[0] != '9' || phone[1] != '7')
+    if (phone[0] != '9' || phone[1] != '8' && phone[1] != '7')
     {
         return 0;
     }
@@ -215,7 +216,7 @@ int giveUserTheMovie(string phone, string uimdb, int copydb, int copyrq, int ind
         fileCreate.open(("appData/rentedMovies/user" + phone + "/date" + to_string(totalMoviesWithUser) + ".file"), ios::out);
         int y, m, d;
         getDate(&y, &m, &d);
-        fileCreate << d << " " << m << " " << y;
+        fileCreate << setfill('0') << setw(2) << d << "/" << setfill('0') << setw(2) << m << "/" << setfill('0') << setw(4) << y;
         fileCreate.close();
         fileCreate.open("appData/allMovies/movie" + to_string(indexdb) + "/copies.file", ios::out);
         fileCreate << (copydb - copyrq);
@@ -231,10 +232,45 @@ int giveUserTheMovie(string phone, string uimdb, int copydb, int copyrq, int ind
     fileCreate.open(("appData/rentedMovies/user" + phone + "/date" + to_string(totalMoviesWithUser) + ".file"), ios::out);
     int y, m, d;
     getDate(&y, &m, &d);
-    fileCreate << d << " " << m << " " << y;
+    fileCreate << setfill('0') << setw(2) << d << "/" << setfill('0') << setw(2) << m << "/" << setfill('0') << setw(4) << y;
     fileCreate.close();
     fileCreate.open("appData/allMovies/movie" + to_string(indexdb) + "/copies.file", ios::out);
     fileCreate << (copydb - copyrq);
     fileCreate.close();
     return 1;
+}
+
+int getTotalRentedUserAmount(int total)
+{
+    fstream openFile1, openFile2;
+    string phone;
+    int flag = 0, totalWithUser;
+    for (int i = 1; i <= total; i++)
+    {
+        phone.clear();
+        openFile1.open("appData/Users/user" + to_string(i) + ".file", ios::in);
+        if (!openFile1)
+        {
+            openFile1.close();
+            continue;
+        }
+        openFile1 >> phone;
+        decrypt(&phone);
+        openFile1.close();
+        openFile2.open("appData/rentedMovies/user" + phone + "/totalMovie.file", ios::in);
+        if (!openFile2)
+        {
+            openFile2.close();
+            continue;
+        }
+        openFile2 >> totalWithUser;
+        if (totalWithUser == 0)
+        {
+            openFile2.close();
+            continue;
+        }
+        openFile2.close();
+        flag++;
+    }
+    return flag;
 }

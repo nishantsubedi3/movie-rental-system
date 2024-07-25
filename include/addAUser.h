@@ -65,7 +65,7 @@ void addUser()
             continue;
         }
     }
-    if (user.password[0] != '9' || user.password[1] != '8' && user.password[0] != '9' || user.password[1] != '7')
+    if (user.password[0] != '9' || user.password[1] != '8' && user.password[1] != '7')
     {
         fullCenterMe("Invalid phone number", 1);
         fullCenterMe("Press any key to return back to menu...", -1);

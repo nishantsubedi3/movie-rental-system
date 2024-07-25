@@ -16,3 +16,4 @@ void viewMovie(int n, int q);
 void rentMovie();
 void getIMDBRequestID(std::string &userRequestedImdb);
 void returnMovie();
+void viewAllRentedMovies(int, int);

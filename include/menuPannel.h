@@ -17,19 +17,22 @@ void menu()
     centerMe("3. View all movies");
     cout << endl;
     cout << endl;
-    centerMe("4. Add a user");
+    centerMe("4. View all rented movies");
     cout << endl;
     cout << endl;
-    centerMe("5. Remove a user");
+    centerMe("5. Add a user");
     cout << endl;
     cout << endl;
-    centerMe("6. View all users");
+    centerMe("6. Remove a user");
     cout << endl;
     cout << endl;
-    centerMe("7. Add a movie");
+    centerMe("7. View all users");
     cout << endl;
     cout << endl;
-    centerMe("8. Remove a movie");
+    centerMe("8. Add a movie");
+    cout << endl;
+    cout << endl;
+    centerMe("9. Remove a movie");
     cout << endl;
     cout << endl;
     centerMe("Enter your choice: ");
@@ -46,18 +49,21 @@ void menu()
         viewMovie(1, 0);
         break;
     case 4:
-        addUser();
+        viewAllRentedMovies(0, 0);
         break;
     case 5:
-        removeUser();
+        addUser();
         break;
     case 6:
-        viewUser(1, 0);
+        removeUser();
         break;
     case 7:
-        addMovie();
+        viewUser(1, 0);
         break;
     case 8:
+        addMovie();
+        break;
+    case 9:
         removeMovie();
         break;
     default:
