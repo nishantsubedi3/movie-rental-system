@@ -194,9 +194,16 @@ int canUserRent(string phone, string id)
 
 int giveUserTheMovie(string phone, string uimdb, int copydb, int copyrq, int indexdb)
 {
-    int totalMoviesWithUser, copybefore;
+    int totalMoviesWithUser = 0, copybefore;
     ifstream fileCheck("appData/rentedMovies/user" + phone + "/totalMovie.file");
-    fileCheck >> totalMoviesWithUser;
+    if (!fileCheck)
+    {
+        totalMoviesWithUser = 0;
+    }
+    else
+    {
+        fileCheck >> totalMoviesWithUser;
+    }
     fileCheck.close();
     int uindex = getMovieIndexUser(phone, uimdb, totalMoviesWithUser);
     fstream fileCreate;
