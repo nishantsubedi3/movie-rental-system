@@ -194,7 +194,7 @@ void removeUser()
     if (user.password[0] != '9' && user.password[1] != '8' || user.password[0] != '9' && user.password[1] != '7')
     {
         fullCenterMe("Invalid phone number", 1);
-        fullCenterMe("Press any key to return back to menu...", -1);
+        fullCenterMe("Press any key to return back to menu...", -2);
         _getch();
         addUser();
     }
@@ -202,7 +202,7 @@ void removeUser()
     if (status == 0)
     {
         fullCenterMe("User not found", 1);
-        fullCenterMe("Press any key to return back to menu...", -1);
+        fullCenterMe("Press any key to return back to menu...", -2);
         _getch();
         menu();
     }
@@ -214,7 +214,7 @@ void removeUser()
         if (totalUsr == 0)
         {
             fullCenterMe("No users found", 1);
-            fullCenterMe("Press any key to return back to menu...", -1);
+            fullCenterMe("Press any key to return back to menu...", -2);
             _getch();
             menu();
         }
@@ -269,7 +269,7 @@ void removeUser()
                     cout << endl;
                     centerMe("REMOVE A USER");
                     fullCenterMe("User needs to return the movies before cancelling the account!");
-                    fullCenterMe("Press any key to return to menu......");
+                    fullCenterMe("Press any key to return to menu......", -2);
                     _getch();
                     menu();
                 }
@@ -296,7 +296,7 @@ void removeUser()
                     remove(("appData/rentedMovies/user" + user.password + "/date" + to_string(i) + ".file").c_str());
                 }
                 sleep(100);
-                remove(("appData/rentedMovies/user" + user.password).c_str());
+                RemoveDirectory(("appData/rentedMovies/user" + user.password).c_str());
                 fullCenterMe("User removed successfully", 1);
                 fullCenterMe("Press any key to get back to menu...", -2);
                 totalUsr--;
